@@ -6,6 +6,7 @@ from void_shell.shadow.manager import ShadowManager
 from void_shell.ai.reconstructor import NEREngine
 from void_shell.tui.dashboard import Dashboard
 from void_shell.memory.synapse import SynapseMemory
+from void_shell.memory.recall import RecallEngine
 
 class VoidEngine:
     """
@@ -16,11 +17,22 @@ class VoidEngine:
         self.config = config
         self.dashboard = Dashboard(config)
         self.memory = SynapseMemory()
+        self.recall_engine = RecallEngine(config)
         self.interceptor = IOInterceptor(self.dashboard)
         self.shadow_manager = ShadowManager(config)
         self.ner_engine = NEREngine(config)
 
     async def run(self, cmd_args: List[str]):
+        if not cmd_args:
+            self.dashboard.show_banner()
+            return
+
+        # Check for Recall Command
+        if cmd_args[0] == "recall" and len(cmd_args) > 1:
+            query = " ".join(cmd_args[1:])
+            await self.recall_engine.query(query)
+            return
+
         full_cmd = " ".join(cmd_args)
         self.dashboard.log_execution(full_cmd)
 
@@ -62,6 +74,10 @@ class VoidEngine:
         # 5. Finalisation & Analysis
         await shadow_task
         self.dashboard.log_completion(return_code, duration)
+
+        # 6. Indexing for Phase 2 Recall
+        full_output = "\n".join(self.interceptor.stdout_buffer)
+        self.recall_engine.index_output(full_cmd, full_output)
 
         if return_code != 0:
             # Injecting recent context into NER Engine for high-precision fixing
