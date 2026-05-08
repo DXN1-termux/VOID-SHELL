@@ -220,6 +220,29 @@ The **Intelligence Persistence Engine**. Stores every command in an append-only 
 - [ ] Recursive Exploit Chaining
 - [ ] Automated Report Synthesis
 
+## 🔱 V1 vs V2: THE EVOLUTION
+
+`VOID-SHELL` has undergone a massive leap in capability from Phase 1 to Phase 2.
+
+| Feature | Phase 1 (Foundation) | Phase 2 (Synapse Integration) |
+|---|---|---|
+| **Memory Layer** | Basic SQL History | **Synapse Vector Store + P2P Sync** |
+| **Intelligence** | Static AI Fixes | **Context-Aware NER + Semantic Recall** |
+| **Shadow Swarm** | Placeholder Manager | **Specialized Workers (Scout, Guardian)** |
+| **I/O Handling** | Basic Interception | **Neural Overlay + High-Entropy Detection** |
+| **Orchestration** | Single-loop Engine | **Multi-threaded Worker Pool** |
+| **Connectivity** | Isolated Execution | **UDP-based Intelligence Broadcast** |
+
+---
+
+## 🏷 VERSION 2.0 (STABLE)
+**"The Singularity Point"**
+
+- **Implemented:** Full Vector Memory Engine for Semantic Recall.
+- **Implemented:** Specialized Shadow Workers for Recon and Security.
+- **Implemented:** P2P Synapse Protocol for distributed intelligence.
+- **Implemented:** Contextual AI injection for 10x smarter self-healing.
+
 ---
 
 ## 🤝 ELITE CONTRIBUTIONS

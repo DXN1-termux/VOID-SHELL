@@ -7,7 +7,6 @@ from void_shell.ai.reconstructor import NEREngine
 from void_shell.tui.dashboard import Dashboard
 from void_shell.memory.synapse import SynapseMemory
 from void_shell.memory.recall import RecallEngine
-
 class VoidEngine:
     """
     VoidEngine: The Central Nervous System of VOID-SHELL.
@@ -19,7 +18,7 @@ class VoidEngine:
         self.memory = SynapseMemory()
         self.recall_engine = RecallEngine(config)
         self.interceptor = IOInterceptor(self.dashboard)
-        self.shadow_manager = ShadowManager(config)
+        self.shadow_manager = ShadowManager(config, self.memory)
         self.ner_engine = NEREngine(config)
 
     async def run(self, cmd_args: List[str]):
@@ -38,11 +37,8 @@ class VoidEngine:
 
         # 1. State Initialisation
         start_time = time.time()
-        
-        # 2. Parallel Shadow Dispatch
-        shadow_task = asyncio.create_task(self.shadow_manager.dispatch(full_cmd))
 
-        # 3. Process Execution Loop
+        # 2. Process Execution Loop
         try:
             process = await asyncio.create_subprocess_shell(
                 full_cmd,
@@ -62,8 +58,14 @@ class VoidEngine:
             return_code = -1
 
         duration = time.time() - start_time
-        
+        full_output = "\n".join(self.interceptor.stdout_buffer)
+
+        # 3. Parallel Shadow Dispatch (Now with Output Awareness)
+        shadow_task = asyncio.create_task(self.shadow_manager.dispatch(full_cmd, full_output))
+
         # 4. Intelligence Persistence
+...
+
         cmd_id = self.memory.store_command(
             command=full_cmd,
             exit_code=return_code,
