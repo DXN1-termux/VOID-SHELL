@@ -7,7 +7,7 @@ class NEREngine:
     def __init__(self, config):
         self.config = config
 
-    async def reconstruct(self, cmd: str, error: str):
+    async def reconstruct(self, cmd: str, error: str, context: str = ""):
         """Neural Error Reconstruction - The core of VOID-SHELL's self-healing."""
         if not self.config.features.auto_correct:
             return
@@ -19,8 +19,11 @@ class NEREngine:
         ERROR LOG:
         {error}
         
+        RECENT HISTORICAL CONTEXT:
+        {context}
+        
         TASK: 
-        1. Diagnose the technical root cause.
+        1. Diagnose the technical root cause (taking history into account).
         2. Synthesize a precision patch (corrected command).
         3. Explain the logic briefly.
         
