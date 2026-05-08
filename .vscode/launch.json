@@ -1,0 +1,46 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run VOID-SHELL",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceFolder}/void_shell/main.py",
+      "console": "integratedTerminal",
+      "args": [],
+      "justMyCode": false
+    },
+    {
+      "name": "Run Setup Wizard",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceFolder}/void_shell/utils/wizard.py",
+      "console": "integratedTerminal",
+      "args": ["--interactive"],
+      "justMyCode": false
+    },
+    {
+      "name": "Run Doctor Check",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceFolder}/void_shell/utils/doctor.py",
+      "console": "integratedTerminal",
+      "justMyCode": false
+    },
+    {
+      "name": "Run Tests",
+      "type": "python",
+      "request": "launch",
+      "module": "pytest",
+      "console": "integratedTerminal",
+      "args": ["tests/", "-v", "--tb=short"],
+      "justMyCode": false
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Full Development",
+      "configurations": ["Run VOID-SHELL", "Run Doctor Check"]
+    }
+  ]
+}
