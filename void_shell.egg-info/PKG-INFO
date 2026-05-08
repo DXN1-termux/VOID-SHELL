@@ -1,0 +1,9 @@
+Metadata-Version: 2.4
+Name: void-shell
+Version: 1.0.0
+License-File: LICENSE
+Requires-Dist: rich>=12.0.0
+Requires-Dist: aiohttp>=3.8.0
+Requires-Dist: python-dotenv>=0.20.0
+Dynamic: license-file
+Dynamic: requires-dist
